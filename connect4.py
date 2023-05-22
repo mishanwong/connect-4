@@ -274,7 +274,6 @@ class Connect4AI:
         q_value_list = []
         # pretty_print_nonzero_q(self.q)
         for state_key, actions in self.q.items():
-            # print("actions", actions)
             if state_key == self.list_to_tuple(state):
                 for action, q_val in actions.items():
                     q_value_list.append(q_val)
@@ -340,31 +339,6 @@ class Connect4AI:
                 action_list.append(_action)
 
         return random.choice(action_list)
-
-    def temp_sorted_actions_list(self, state, epsilon=True):
-        """Function for testing purpose only
-        to be removed
-        """
-        connect4 = Connect4()
-
-        action_value_pairs = []
-        available_actions = connect4.available_actions(state)
-
-        for action in available_actions:
-            state_key = self.list_to_tuple(state)
-            if state_key in self.q:
-                if action in self.q[state_key]:
-                    action_value_pairs.append((action, self.q[state_key][action]))
-                else:
-                    action_value_pairs.append((action, 0))
-            else:
-                action_value_pairs.append((action, 0))
-
-        # Sort the action value pairs in descending order by q-value
-        action_value_pairs = sorted(
-            action_value_pairs, key=lambda x: x[1], reverse=True
-        )
-        return action_value_pairs
 
     def list_to_tuple(self, list):
         """
@@ -457,7 +431,6 @@ def play(ai, human_player=None):
     while True:
         # Compute available actions
         available_actions = game.available_actions(game.board)
-        # print(available_actions)
         time.sleep(1)
 
         print("sorted action", ai.temp_sorted_actions_list(game.board))
