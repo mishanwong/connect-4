@@ -422,18 +422,11 @@ def play(ai, human_player=None):
     # Create a new game
     game = Connect4()
 
-    for key, value in ai.q.items():
-        print_board(key)
-        for action, q_val in value.items():
-            print(action, q_val)
-
     # Game loop
     while True:
         # Compute available actions
         available_actions = game.available_actions(game.board)
         time.sleep(1)
-
-        print("sorted action", ai.temp_sorted_actions_list(game.board))
 
         # Let human make a move
         if game.player == human_player:
@@ -456,9 +449,6 @@ def play(ai, human_player=None):
 
         # Make a move
         game.move(col_num)
-
-        # Print the board
-        print_board(game.board)
 
         # Check for winner
         if game.winner is not None:
